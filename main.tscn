@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://djt033ln16jyu" path="res://assets/tileset/TilesetFloor.png" id="1_nrdk1"]
 [ext_resource type="Script" path="res://main.gd" id="1_puorm"]
+[ext_resource type="PackedScene" uid="uid://b6ldiulx0molp" path="res://scenes/character/ninja/ninja.tscn" id="2_k3jjs"]
 [ext_resource type="Texture2D" uid="uid://dqwg2h154dfr3" path="res://assets/tileset/TilesetInterior.png" id="2_sut58"]
-[ext_resource type="PackedScene" uid="uid://b6ja52vjfaad5" path="res://scenes/knight.tscn" id="3_l7wp8"]
 [ext_resource type="Script" path="res://Area2D.gd" id="5_wftkr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_75uvp"]
@@ -2241,9 +2241,9 @@ sources/1 = SubResource("TileSetAtlasSource_jtyqr")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t4uq4"]
 size = Vector2(606, 606)
 
-[node name="Node" type="Node"]
+[node name="Main" type="Node"]
 script = ExtResource("1_puorm")
-sprite_scene = ExtResource("3_l7wp8")
+sprite_scene = ExtResource("2_k3jjs")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_rcc85")

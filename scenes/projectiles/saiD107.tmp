@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bp2kg8tv1w7wf"]
+
+[ext_resource type="Texture2D" uid="uid://cb77ugyw2ox8d" path="res://assets/projectiles/Sai.png" id="1_0w53k"]
+[ext_resource type="Script" path="res://scenes/projectiles/sai.gd" id="1_su5t8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lu40f"]
+size = Vector2(8, 14)
+
+[node name="sai_projectile" type="CharacterBody2D" groups=["projectile"]]
+script = ExtResource("1_su5t8")
+
+[node name="sai_sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_0w53k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lu40f")

@@ -1,12 +1,18 @@
-[gd_scene load_steps=24 format=3 uid="uid://b6ja52vjfaad5"]
+[gd_scene load_steps=29 format=3 uid="uid://b6ja52vjfaad5"]
 
 [ext_resource type="Script" path="res://scenes/knight.gd" id="1_keyoo"]
 [ext_resource type="Texture2D" uid="uid://bnnhfk2mdol5b" path="res://assets/character/knight/Walk.png" id="2_jvktb"]
 [ext_resource type="Texture2D" uid="uid://bkp6jkvd7lj5c" path="res://assets/character/knight/Idle.png" id="3_rf5j3"]
+[ext_resource type="Shader" path="res://scenes/knight.gdshader" id="4_ugif5"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rf1np"]
 friction = 0.0
 bounce = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yvl3k"]
+resource_local_to_scene = true
+shader = ExtResource("4_ugif5")
+shader_parameter/active = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q8505"]
 atlas = ExtResource("2_jvktb")
@@ -162,6 +168,43 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_810be"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y8edd"]
+shader = ExtResource("4_ugif5")
+shader_parameter/active = false
+
+[sub_resource type="Animation" id="Animation_s5gxj"]
+resource_name = "hit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-0.349066, 0.349066, -0.174533, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [SubResource("ShaderMaterial_yvl3k"), SubResource("ShaderMaterial_yvl3k"), SubResource("ShaderMaterial_y8edd"), SubResource("ShaderMaterial_y8edd")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_72m6d"]
+_data = {
+"hit": SubResource("Animation_s5gxj")
+}
+
 [node name="RigidBody2D" type="RigidBody2D"]
 mass = 0.01
 physics_material_override = SubResource("PhysicsMaterial_rf1np")
@@ -172,15 +215,23 @@ contact_monitor = true
 script = ExtResource("1_keyoo")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_yvl3k")
 position = Vector2(141, 176)
+rotation = -0.349066
 sprite_frames = SubResource("SpriteFrames_j3nrx")
-animation = &"idle"
+animation = &"down"
 autoplay = "idle"
-frame_progress = 0.982251
+frame_progress = 0.69741
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(141, 176)
+position = Vector2(141, 177)
 shape = SubResource("CircleShape2D_810be")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_72m6d")
+}
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
